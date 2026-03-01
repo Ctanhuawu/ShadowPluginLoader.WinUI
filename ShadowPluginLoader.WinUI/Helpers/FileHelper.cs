@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -49,14 +49,14 @@ public static class FileHelper
     {
         if (!downloadFile.Scheme.StartsWith("http")) return downloadFile;
         var destinationPath = GetName(downloadFile.AbsolutePath, tempFolder);
-        logger?.Information("Start To Download File {httpPath} To {destinationPath}",
+        logger?.LogInformation("Start To Download File {httpPath} To {destinationPath}",
             downloadFile, destinationPath);
         using var client = new HttpClient();
         using var response = await client.GetAsync(downloadFile, HttpCompletionOption.ResponseHeadersRead);
         await using var stream = await response.Content.ReadAsStreamAsync();
         await using var fileStream = File.Create(destinationPath);
         await stream.CopyToAsync(fileStream);
-        logger?.Information("Download File {httpPath} To {destinationPath} Success",
+        logger?.LogInformation("Download File {httpPath} To {destinationPath} Success",
             downloadFile, destinationPath);
         return new Uri(destinationPath);
     }

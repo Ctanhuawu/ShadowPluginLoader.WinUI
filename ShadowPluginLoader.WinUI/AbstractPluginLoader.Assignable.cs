@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ShadowPluginLoader.WinUI.Enums;
 using ShadowPluginLoader.WinUI.Models;
+using Microsoft.Extensions.Logging;
 
 namespace ShadowPluginLoader.WinUI;
 
@@ -79,7 +80,7 @@ public abstract partial class AbstractPluginLoader<TMeta, TAPlugin> : IPluginLoa
     {
         if (!_plugins.TryGetValue(id, out var plugin)) return;
         plugin.IsEnabled = true;
-        Logger.Information("{Pre}{Id}: Enabled",
+        Logger.LogInformation("{Pre}{Id}: Enabled",
             LoggerPrefix, id);
     }
 
@@ -90,7 +91,7 @@ public abstract partial class AbstractPluginLoader<TMeta, TAPlugin> : IPluginLoa
     {
         if (!_plugins.TryGetValue(id, out var plugin)) return;
         plugin.IsEnabled = false;
-        Logger.Information("{Pre}{Id}: Disabled",
+        Logger.LogInformation("{Pre}{Id}: Disabled",
             LoggerPrefix, id);
     }
 

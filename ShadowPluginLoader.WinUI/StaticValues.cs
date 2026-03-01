@@ -1,4 +1,4 @@
-﻿using Windows.Storage;
+﻿using System;
 
 namespace ShadowPluginLoader.WinUI;
 
@@ -21,5 +21,5 @@ public static class StaticValues
     /// <summary>
     /// 
     /// </summary>
-    public static string BaseFolder { get; } = ApplicationData.Current.LocalFolder.Path;
+    public static string BaseFolder { get; } = AppContext.BaseDirectory;
 }

@@ -1,5 +1,4 @@
 using DryIoc;
-using Serilog;
 using ShadowPluginLoader.Attributes;
 using ShadowPluginLoader.WinUI.Args;
 using ShadowPluginLoader.WinUI.Enums;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using ShadowPluginLoader.WinUI.Config;
+using Microsoft.Extensions.Logging;
 
 namespace ShadowPluginLoader.WinUI;
 
@@ -73,7 +73,7 @@ public abstract partial class AbstractPluginLoader<TMeta, TAPlugin>
             instance.Loaded();
             PluginEventService.InvokePluginLoaded(this, new PluginEventArgs(meta.Id, PluginStatus.Loaded));
             stopwatch.Stop();
-            Logger.Information("{Pre}{ID}({isEnabled}): Load Success! Used: {mi} ms",
+            Logger.LogInformation("{Pre}{ID}({isEnabled}): Load Success! Used: {mi} ms",
                 LoggerPrefix, meta.Id, enabled, stopwatch.ElapsedMilliseconds);
             DependencyChecker.LoadedPlugins.TryAdd(meta.DllName, meta.Version);
             if (!enabled) return;
@@ -86,7 +86,7 @@ public abstract partial class AbstractPluginLoader<TMeta, TAPlugin>
                 stopwatch.Stop();
             }
 
-            Logger.Warning("{Pre}Plugin Load Failed! Used: {mi} ms, Error: {Ex}",
+            Logger.LogWarning("{Pre}Plugin Load Failed! Used: {mi} ms, Error: {Ex}",
                 LoggerPrefix, stopwatch.ElapsedMilliseconds, e);
             throw;
         }
@@ -121,7 +121,7 @@ public abstract partial class AbstractPluginLoader<TMeta, TAPlugin>
     {
         var instance = DiFactory.Services.Resolve<TAPlugin>(serviceKey: meta.Id);
         if (instance is null) throw new PluginImportException($"{plugin.Name}: Can't Load Plugin");
-        Logger.Information("Plugin[{ID}] Main Class Load Success", meta.Id);
+        Logger.LogInformation("Plugin[{ID}] Main Class Load Success", meta.Id);
         return instance;
     }
 

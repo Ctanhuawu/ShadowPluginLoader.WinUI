@@ -1,11 +1,12 @@
-using System;
 using DryIoc;
+using Microsoft.Extensions.Logging;
 using ShadowPluginLoader.WinUI.Checkers;
 using ShadowPluginLoader.WinUI.Config;
 using ShadowPluginLoader.WinUI.Helpers;
 using ShadowPluginLoader.WinUI.PluginFactories;
 using ShadowPluginLoader.WinUI.Processors;
 using ShadowPluginLoader.WinUI.Services;
+using System;
 
 namespace ShadowPluginLoader.WinUI;
 
@@ -27,6 +28,12 @@ public static class DiFactory
                 r => r.ImplementationType ?? r.Parent.ImplementationType ?? typeof(object)),
             setup: Setup.With(condition: r => r.Parent.ImplementationType != null || r.ImplementationType != null));
         Services.Register<IPluginEventService, PluginEventService>(reuse: Reuse.Singleton);
+
+        Services.RegisterDelegate<ILogger>(r =>
+        {
+            var factory = r.Resolve<ILoggerFactory>();
+            return factory.CreateLogger("Default"); // 给一个名字
+        }, Reuse.Singleton);
     }
 
     /// <summary>

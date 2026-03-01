@@ -1,5 +1,5 @@
 ﻿using System;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using ShadowPluginLoader.WinUI.Args;
 
 namespace ShadowPluginLoader.WinUI.Services;
@@ -63,7 +63,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginEnabled(object sender, PluginEventArgs args)
     {
         PluginEnabled?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Enabled Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Enabled Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -75,7 +75,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginDisabled(object sender, PluginEventArgs args)
     {
         PluginDisabled?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Disabled Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Disabled Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -87,7 +87,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginLoaded(object sender, PluginEventArgs args)
     {
         PluginLoaded?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Loaded Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Loaded Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -99,7 +99,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginPlanUpgrade(object sender, PluginEventArgs args)
     {
         PluginPlanUpgrade?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Plan Upgrade Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Plan Upgrade Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -111,7 +111,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginUpgraded(object sender, PluginEventArgs args)
     {
         PluginUpgraded?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Upgraded Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Upgraded Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -123,7 +123,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginPlanRemove(object sender, PluginEventArgs args)
     {
         PluginPlanRemove?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Plan Remove Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Plan Remove Event",
             sender.GetType().Name, args.PluginId);
     }
 
@@ -135,7 +135,7 @@ public class PluginEventService: IPluginEventService
     public void InvokePluginRemoved(object sender, PluginEventArgs args)
     {
         PluginRemoved?.Invoke(sender, args);
-        Logger.Debug("Sender {sender} Invoke {id} Plugin Removed Event",
+        Logger.LogDebug("Sender {sender} Invoke {id} Plugin Removed Event",
             sender.GetType().Name, args.PluginId);
     }
 }

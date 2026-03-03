@@ -27,7 +27,7 @@ public static class DiFactory
             Made.Of(() => Serilog.Log.ForContext(Arg.Index<Type>(0)),
                 r => r.ImplementationType ?? r.Parent.ImplementationType ?? typeof(object)),
             setup: Setup.With(condition: r => r.Parent.ImplementationType != null || r.ImplementationType != null));
-        Services.Register<IPluginEventService, PluginEventService>(reuse: Reuse.Singleton);
+        Services.Register<PluginEventService>(reuse: Reuse.Singleton);
 
         Services.RegisterDelegate<ILogger>(r =>
         {
